@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	HEADER_H
-# define	HEADER_H
+#ifndef HEADER_H
+# define HEADER_H
 
 # include <unistd.h>
 # include <stdlib.h>

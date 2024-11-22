@@ -53,16 +53,16 @@ int	ft_printf(const char *format, ...)
 	return (read);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	int	read;
 	int	read2;
 
-	read = ft_printf("ft_printf : %x\n", 127);
-	read2 = printf("printf : %x\n", 127);
+	read = ft_printf("Hello %s %c You are %x", "paco", '!', 127);
+	read2 = printf("%x", 127);
 	
 	printf("\n--- read ---\n");
 	printf("ft_printf : %d\n", read);
 	printf("printf : %d\n", read2);
 	return (0);
-}
+}*/
