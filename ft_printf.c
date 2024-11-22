@@ -12,7 +12,8 @@
 
 #include "header.h"
 #include <stdio.h>
-
+#include <limits.h>
+#define age (INT_MIN + 2)
 int	ft_print_format(unsigned char format, va_list ap)
 {
 	int	read;
@@ -23,9 +24,11 @@ int	ft_print_format(unsigned char format, va_list ap)
 	else if (format == 's')
 		return (ft_putstr(va_arg(ap, char *)));
 	else if (format == 'd' || format == 'i')
-		return (ft_putnbr_base(va_arg(ap, long int), 10));
+		return (ft_putnbr_base(va_arg(ap, long int), "0123456789"));
 	else if (format == 'x')
-		return (ft_putnbr_base(va_arg(ap, long int), 16));
+		return (ft_putnbr_base(va_arg(ap, long int), "0123456789abcdef"));
+	else if (format == 'X')
+		return (ft_putnbr_base(va_arg(ap, long int), "0123456789ABCDEF"));
 	else
 		return (0);
 }
@@ -53,16 +56,16 @@ int	ft_printf(const char *format, ...)
 	return (read);
 }
 
-/*int	main(void)
+int	main(void)
 {
 	int	read;
 	int	read2;
 
-	read = ft_printf("Hello %s %c You are %x", "paco", '!', 127);
-	read2 = printf("%x", 127);
+	read = ft_printf("Holla %s %c You're %d, so %i years you live and you're age in hexa is %X or %x\n", "paco", '!', age, age, age, age);
+	read2 = printf("Holla %s %c You're %d, so %i years you live and you're age in hexa is %X or %x\n", "paco", '!', age, age, age, age);
 	
 	printf("\n--- read ---\n");
 	printf("ft_printf : %d\n", read);
 	printf("printf : %d\n", read2);
 	return (0);
-}*/
+}

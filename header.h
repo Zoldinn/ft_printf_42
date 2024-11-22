@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-long int	ft_putnbr_base(long int nb, long int len_base);
+long int	ft_putnbr_base(long int nb, char *base);
 int			ft_putchar(char c);
 int			ft_putstr(char *str);
 

@@ -27,23 +27,21 @@ int	ft_putstr(char *str)
 	return (read);
 }
 
-long int	ft_putnbr_base(long int nb, long int len_base)
+long int	ft_putnbr_base(long int nb, char *base)
 {
 	static long int	read;
 	char			res;
-	char			*base;
+	long int		len_base;
 
 	read = 0;
-	if (len_base == 10)
-		base = "0123456789";
-	else
-		base = "0123456789abcdef";
+	while (base[len_base])
+		len_base++;
 	if (nb < 0)
 	{
 		read += write(1, "-", 1);
 		nb *= -1;
 	}
 	if (nb / len_base != 0)
-		ft_putnbr_base(nb / len_base, len_base);
+		ft_putnbr_base(nb / len_base, base);
 	return (read += write(1, &base[nb % len_base], 1));
 }
