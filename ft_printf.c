@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lefoffan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:30:40 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/22 10:30:40 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:18:20 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <stdio.h>
-#include <limits.h>
-#define age (INT_MIN + 2)
+
 int	ft_print_format(unsigned char format, va_list ap)
 {
 	int	read;
@@ -24,13 +23,17 @@ int	ft_print_format(unsigned char format, va_list ap)
 	else if (format == 's')
 		return (ft_putstr(va_arg(ap, char *)));
 	else if (format == 'd' || format == 'i')
-		return (ft_putnbr_base(va_arg(ap, long int), "0123456789"));
+		return (ft_putnbr(va_arg(ap, long long int), &read));
+	else if (format == 'u')
+		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789",&read));
 	else if (format == 'x')
-		return (ft_putnbr_base(va_arg(ap, long int), "0123456789abcdef"));
+		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789abcdef", &read));
 	else if (format == 'X')
-		return (ft_putnbr_base(va_arg(ap, long int), "0123456789ABCDEF"));
+		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789ABCDEF", &read));
+	else if (format == 'p')
+		return (ft_putaddress(va_arg(ap, void *), &read));
 	else
-		return (0);
+		return (ft_putchar('%'));
 }
 
 int	ft_printf(const char *format, ...)
@@ -58,11 +61,13 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int	read;
-	int	read2;
+	char			a;
+	unsigned int	read;
+	unsigned int	read2;
 
-	read = ft_printf("Holla %s %c You're %d, so %i years you live and you're age in hexa is %X or %x\n", "paco", '!', age, age, age, age);
-	read2 = printf("Holla %s %c You're %d, so %i years you live and you're age in hexa is %X or %x\n", "paco", '!', age, age, age, age);
+	a = '5';
+	read = ft_printf("address %p\n", &a);
+	read2 = printf("address %p\n", &a);
 	
 	printf("\n--- read ---\n");
 	printf("ft_printf : %d\n", read);

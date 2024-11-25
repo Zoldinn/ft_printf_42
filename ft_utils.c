@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lefoffan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:26:57 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/22 11:26:57 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:45:35 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+#include <stdio.h>
 
 int	ft_putchar(char c)
 {
@@ -27,21 +28,41 @@ int	ft_putstr(char *str)
 	return (read);
 }
 
-long int	ft_putnbr_base(long int nb, char *base)
+int	ft_putnbr(long long int nb, int *read)
 {
-	static long int	read;
 	char			res;
-	long int		len_base;
 
-	read = 0;
-	while (base[len_base])
-		len_base++;
 	if (nb < 0)
 	{
-		read += write(1, "-", 1);
+		*read += write(1, "-", 1);
 		nb *= -1;
 	}
-	if (nb / len_base != 0)
-		ft_putnbr_base(nb / len_base, base);
-	return (read += write(1, &base[nb % len_base], 1));
+	if (nb > 9)
+		ft_putnbr(nb / 10, read);
+	res = '0' + (nb % 10);
+	return (*read += write(1, &res, 1));
+}
+
+int	ft_putnbr_base(unsigned long int nb, char *base, int *read)
+{
+	unsigned int	len_base;
+
+	len_base = 0;
+	while (base[len_base])
+		len_base++;
+	if ((nb / len_base) != 0)
+		ft_putnbr_base(nb / len_base, base, read);
+	return (*read += write(1, &base[nb % len_base], 1));
+}
+
+int	ft_putaddress(void *ptr, int *read)
+{
+	int	count;
+
+	count = 0;
+	if (!ptr)
+		return (*read += ft_putstr("(nil)"));
+	*read += ft_putstr("0x");
+	*read += ft_putnbr_base((long long int) ptr, "0123456789abcdef", &count);
+	return (*read);
 }
