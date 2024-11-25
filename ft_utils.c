@@ -6,12 +6,11 @@
 /*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:26:57 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/25 17:45:35 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:07:25 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 int	ft_putchar(char c)
 {
@@ -43,7 +42,7 @@ int	ft_putnbr(long long int nb, int *read)
 	return (*read += write(1, &res, 1));
 }
 
-int	ft_putnbr_base(unsigned long int nb, char *base, int *read)
+int	ft_base(unsigned long int nb, char *base, int *read)
 {
 	unsigned int	len_base;
 
@@ -51,7 +50,7 @@ int	ft_putnbr_base(unsigned long int nb, char *base, int *read)
 	while (base[len_base])
 		len_base++;
 	if ((nb / len_base) != 0)
-		ft_putnbr_base(nb / len_base, base, read);
+		ft_base(nb / len_base, base, read);
 	return (*read += write(1, &base[nb % len_base], 1));
 }
 
@@ -63,6 +62,6 @@ int	ft_putaddress(void *ptr, int *read)
 	if (!ptr)
 		return (*read += ft_putstr("(nil)"));
 	*read += ft_putstr("0x");
-	*read += ft_putnbr_base((long long int) ptr, "0123456789abcdef", &count);
+	*read += ft_base((long long int) ptr, "0123456789abcdef", &count);
 	return (*read);
 }

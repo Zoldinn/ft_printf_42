@@ -6,12 +6,11 @@
 /*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:30:40 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/25 17:18:20 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:05:59 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 int	ft_print_format(unsigned char format, va_list ap)
 {
@@ -25,11 +24,11 @@ int	ft_print_format(unsigned char format, va_list ap)
 	else if (format == 'd' || format == 'i')
 		return (ft_putnbr(va_arg(ap, long long int), &read));
 	else if (format == 'u')
-		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789",&read));
+		return (ft_base(va_arg(ap, unsigned int), "0123456789", &read));
 	else if (format == 'x')
-		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789abcdef", &read));
+		return (ft_base(va_arg(ap, unsigned int), "0123456789abcdef", &read));
 	else if (format == 'X')
-		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789ABCDEF", &read));
+		return (ft_base(va_arg(ap, unsigned int), "0123456789ABCDEF", &read));
 	else if (format == 'p')
 		return (ft_putaddress(va_arg(ap, void *), &read));
 	else
@@ -59,7 +58,7 @@ int	ft_printf(const char *format, ...)
 	return (read);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char			a;
 	unsigned int	read;
@@ -73,4 +72,4 @@ int	main(void)
 	printf("ft_printf : %d\n", read);
 	printf("printf : %d\n", read2);
 	return (0);
-}
+} */
