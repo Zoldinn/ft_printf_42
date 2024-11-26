@@ -6,7 +6,7 @@
 /*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:30:40 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/25 18:05:59 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:18:58 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_print_format(unsigned char format, va_list ap)
 	else if (format == 's')
 		return (ft_putstr(va_arg(ap, char *)));
 	else if (format == 'd' || format == 'i')
-		return (ft_putnbr(va_arg(ap, long long int), &read));
+		return (ft_putnbr(va_arg(ap, int), &read));
 	else if (format == 'u')
 		return (ft_base(va_arg(ap, unsigned int), "0123456789", &read));
 	else if (format == 'x')
@@ -45,11 +45,7 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
-		{
 			read += ft_print_format(*(++format), ap);
-			if (!read)
-				return (0);
-		}
 		else
 			read += write(1, format, 1);
 		format++;
@@ -57,16 +53,17 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (read);
 }
-
-/* int	main(void)
+/* 
+#include <stdio.h>
+#include <limits.h>
+int	main(void)
 {
-	char			a;
 	unsigned int	read;
 	unsigned int	read2;
 
-	a = '5';
-	read = ft_printf("address %p\n", &a);
-	read2 = printf("address %p\n", &a);
+	printf("\n--- ft_printf VS printf ---\n");
+	read = ft_printf("%d\n", INT_MAX);
+	read2 = printf("%d\n",INT_MAX);
 	
 	printf("\n--- read ---\n");
 	printf("ft_printf : %d\n", read);

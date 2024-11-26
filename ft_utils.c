@@ -6,7 +6,7 @@
 /*   By: lefoffan <lefoffan@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:26:57 by lefoffan          #+#    #+#             */
-/*   Updated: 2024/11/25 18:07:25 by lefoffan         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:10:38 by lefoffan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_putstr(char *str)
 	int	read;
 
 	read = 0;
+	if (!str)
+		return (write(1, "(null)", 6));
 	while (*str)
 		read += write(1, str++, 1);
 	return (read);
@@ -29,7 +31,7 @@ int	ft_putstr(char *str)
 
 int	ft_putnbr(long long int nb, int *read)
 {
-	char			res;
+	char	res;
 
 	if (nb < 0)
 	{
